@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3eb489"
+    tools:context=".MainActivity">
+
+    <!-- Microphone Button -->
+
+    <!-- TextView -->
+
+    <!-- Yes Button -->
+
+    <!-- No Button -->
+
+    <ImageButton
+        android:id="@+id/button_microphone"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_btn_speak_now"
+        app:layout_constraintMargin="16dp"
+        tools:layout_editor_absoluteX="330dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <TextView
+        android:id="@+id/textView_question"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:background="#76FF03"
+        android:padding="16dp"
+        android:text="ΘΕΛΕΤΕ ΝΑ ΣΑΣ ΔΕΙΞΟΥΜΕ\nΠΩΣ ΔΟΥΛΕΥΕΙ\nΗ ΕΦΑΡΜΟΓΗ ;"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintMarginTop="32dp"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="160dp" />
+
+    <Button
+        android:id="@+id/button_yes"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="#00C853"
+        android:text="ΝΑΙ"
+        android:textColor="#FFFFFF"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintMarginStart="32dp"
+        app:layout_constraintMarginTop="16dp"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="469dp" />
+
+    <Button
+        android:id="@+id/button_no"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="#D32F2F"
+        android:text="ΟΧΙ"
+        android:textColor="#FFFFFF"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintMarginStart="16dp"
+        app:layout_constraintMarginTop="16dp"
+        tools:layout_editor_absoluteX="226dp"
+        tools:layout_editor_absoluteY="469dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
