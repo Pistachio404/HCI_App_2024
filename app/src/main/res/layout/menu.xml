@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="#3eb489"
-    tools:context=".MainActivity">
+    tools:context=".MenuActivity">
 
     <TextView
         android:id="@+id/tvHeader"
@@ -43,13 +43,12 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="10dp"
+        android:onClick="onCallsButtonClick"
         app:layout_constraintEnd_toStartOf="@id/llMessagesButton"
         app:layout_constraintHeight_percent="0.20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHeader"
         app:layout_constraintWidth_percent="0.48">
-
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,13 +74,12 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="10dp"
+        android:onClick="onMessagesButtonClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.20"
         app:layout_constraintStart_toEndOf="@id/llCallsButton"
         app:layout_constraintTop_toBottomOf="@id/tvHeader"
         app:layout_constraintWidth_percent="0.48">
-
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,14 +105,13 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="10dp"
+        android:onClick="onRemindersButtonClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.20"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llCallsButton"
         app:layout_constraintWidth_percent="0.98">
-
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -140,14 +137,13 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="10dp"
+        android:onClick="onSosButtonClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.20"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llRemindersButton"
         app:layout_constraintWidth_percent="0.98">
-
-
 
         <TextView
             android:layout_width="wrap_content"

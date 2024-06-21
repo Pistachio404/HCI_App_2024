@@ -12,44 +12,28 @@ import com.example.hci_app_2024.SOSActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private Button callsButton, messagesButton, remindersButton, sosButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+    }
 
-        callsButton = findViewById(R.id.callsButton);
-        messagesButton = findViewById(R.id.messagesButton);
-        remindersButton = findViewById(R.id.remindersButton);
-        sosButton = findViewById(R.id.sosButton);
+    public void onCallsButtonClick(View view) {
+        Intent intent = new Intent(this, CallsActivity.class);
+        startActivity(intent);
+    }
 
-        callsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, CallsActivity.class));
-            }
-        });
+    public void onMessagesButtonClick(View view) {
+        // Handle the messages button click
+    }
 
-        messagesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, MessagesActivity.class));
-            }
-        });
+    public void onRemindersButtonClick(View view) {
+        // Handle the reminders button click
+    }
 
-        remindersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, RemindersActivity.class));
-            }
-        });
-
-        sosButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, SOSActivity.class));
-            }
-        });
+    public void onSosButtonClick(View view) {
+        // Handle the SOS button click
     }
 }
+
+
