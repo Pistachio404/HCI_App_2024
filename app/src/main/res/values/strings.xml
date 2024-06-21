@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HCI_App_2024</string>
+    <string name="call_icon">call</string>
 </resources>
