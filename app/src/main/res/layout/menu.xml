@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,152 +13,96 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ΛΕΙΤΟΥΡΓΙΕΣ"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#000000"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/llCallsButton"
+        app:layout_constraintBottom_toTopOf="@id/callsButton"
         app:layout_constraintVertical_chainStyle="packed"/>
 
     <ImageButton
         android:id="@+id/button_microphone"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
         android:background="@android:color/transparent"
         android:contentDescription="Μικρόφωνο"
         android:scaleType="fitCenter"
         android:src="@drawable/microphone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/llCallsButton"
+    <Button
+        android:id="@+id/callsButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="84dp"
         android:background="#008000"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp"
-        android:onClick="onCallsButtonClick"
-        app:layout_constraintEnd_toStartOf="@id/llMessagesButton"
+        android:drawableStart="@android:drawable/ic_menu_call"
+        android:text="Κλήσεις"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toStartOf="@id/messagesButton"
         app:layout_constraintHeight_percent="0.20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHeader"
-        app:layout_constraintWidth_percent="0.48">
+        app:layout_constraintWidth_percent="0.48" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Κλήσεις"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
-            android:gravity="center"/>
-
-        <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/call2" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llMessagesButton"
+    <Button
+        android:id="@+id/messagesButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="84dp"
         android:background="@android:color/holo_orange_dark"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp"
-        android:onClick="onMessagesButtonClick"
+        android:drawableStart="@android:drawable/ic_dialog_email"
+        android:text="Μηνύματα"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.20"
-        app:layout_constraintStart_toEndOf="@id/llCallsButton"
+        app:layout_constraintStart_toEndOf="@id/callsButton"
         app:layout_constraintTop_toBottomOf="@id/tvHeader"
-        app:layout_constraintWidth_percent="0.48">
+        app:layout_constraintWidth_percent="0.48" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Μηνύματα"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
-            android:gravity="center"/>
-
-        <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@android:drawable/ic_dialog_email"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llRemindersButton"
+    <Button
+        android:id="@+id/remindersButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="52dp"
         android:background="@android:color/holo_blue_dark"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp"
-        android:onClick="onRemindersButtonClick"
+        android:drawableStart="@android:drawable/ic_popup_reminder"
+        android:text="Υπενθυμίσεις"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.20"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llCallsButton"
-        app:layout_constraintWidth_percent="0.98">
+        app:layout_constraintTop_toBottomOf="@id/callsButton"
+        app:layout_constraintWidth_percent="0.98" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Υπενθυμίσεις"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
-            android:gravity="center"/>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/bell" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llSosButton"
+    <Button
+        android:id="@+id/sosButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="64dp"
         android:background="@android:color/holo_red_dark"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp"
-        android:onClick="onSosButtonClick"
+        android:drawableStart="@android:drawable/ic_menu_info_details"
+        android:text="SOS"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.20"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llRemindersButton"
-        app:layout_constraintWidth_percent="0.98">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SOS"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
-            android:gravity="center"/>
-
-        <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/sos" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/remindersButton"
+        app:layout_constraintWidth_percent="0.98" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
