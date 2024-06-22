@@ -53,82 +53,12 @@
             app:cardElevation="4dp">
 
             <LinearLayout
+                android:id="@+id/contacts_container"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/textView_maria"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΜΑΡΙΑ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView_giorgos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΓΙΩΡΓΟΣ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView_nikolas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΝΙΚΟΛΑΣ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView_anna"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΑΝΝΑ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView_eggons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΕΓΓΟΝΟΣ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView_eggoni"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΕΓΓΟΝΗ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView_doctor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΓΙΑΤΡΟΣ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView_pathologist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="ΠΑΘΟΛΟΓΟΣ"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
+                <!-- Dynamic content will be added here -->
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>
@@ -146,5 +76,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

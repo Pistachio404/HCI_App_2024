@@ -34,6 +34,10 @@ public class Message_DetailsActivity extends AppCompatActivity {
         // Get the contact name from the intent
         contactName = getIntent().getStringExtra("contact_name");
 
+        // Set the contact name in the header
+        TextView headerTextView = findViewById(R.id.textView_header);
+        headerTextView.setText(contactName);
+
         // Load saved messages for the contact
         loadMessages();
 

@@ -5,24 +5,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class MessagesActivity extends AppCompatActivity {
+
+    private LinearLayout contactsContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messages);
 
-        setClickListener(R.id.textView_maria, "ΜΑΡΙΑ");
-        setClickListener(R.id.textView_giorgos, "ΓΙΩΡΓΟΣ");
-        setClickListener(R.id.textView_nikolas, "ΝΙΚΟΛΑΣ");
-        setClickListener(R.id.textView_anna, "ΑΝΝΑ");
-        setClickListener(R.id.textView_eggons, "ΕΓΓΟΝΟΣ");
-        setClickListener(R.id.textView_eggoni, "ΕΓΓΟΝΗ");
-        setClickListener(R.id.textView_doctor, "ΓΙΑΤΡΟΣ");
-        setClickListener(R.id.textView_pathologist, "ΠΑΘΟΛΟΓΟΣ");
+        contactsContainer = findViewById(R.id.contacts_container);
+
+        // Load contacts and populate the list
+        loadContacts();
 
         Button newMessageButton = findViewById(R.id.btnNew_message);
         newMessageButton.setOnClickListener(v -> {
@@ -37,12 +38,27 @@ public class MessagesActivity extends AppCompatActivity {
         });
     }
 
-    private void setClickListener(int textViewId, String contactName) {
-        TextView textView = findViewById(textViewId);
-        textView.setOnClickListener(v -> {
+    private void loadContacts() {
+        ContactManager contactManager = ContactManager.getInstance(this);
+        ArrayList<ContactManager.Contact> contacts = contactManager.getAllContacts();
+
+        for (ContactManager.Contact contact : contacts) {
+            addContactToView(contact);
+        }
+    }
+
+    private void addContactToView(ContactManager.Contact contact) {
+        TextView contactTextView = new TextView(this);
+        contactTextView.setText(contact.getName());
+        contactTextView.setTextSize(20);
+        contactTextView.setPadding(10, 10, 10, 10);
+        contactTextView.setTextColor(getResources().getColor(android.R.color.black));
+        contactTextView.setOnClickListener(v -> {
             Intent intent = new Intent(MessagesActivity.this, Message_DetailsActivity.class);
-            intent.putExtra("contact_name", contactName);
+            intent.putExtra("contact_name", contact.getName());
             startActivity(intent);
         });
+        contactsContainer.addView(contactTextView);
     }
 }
+
