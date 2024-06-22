@@ -1,8 +1,10 @@
 package com.example.hci_app_2024;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -22,8 +24,10 @@ import java.util.Locale;
 public class VoiceRecognitionActivity extends AppCompatActivity {
 
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    private static final int REQUEST_CALL_PHONE_PERMISSION = 201;
     private SpeechRecognizer speechRecognizer;
     private TextView textViewResults;
+    private ContactManager contactManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,50 +36,42 @@ public class VoiceRecognitionActivity extends AppCompatActivity {
 
         Button speechButton = findViewById(R.id.button);
         textViewResults = findViewById(R.id.textView_results);
+        contactManager = ContactManager.getInstance(this);
 
-        // Request microphone permission if not granted
+        // Request microphone and call phone permissions if not granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO_PERMISSION);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
         }
 
         // Initialize the SpeechRecognizer
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
-            public void onReadyForSpeech(Bundle params) {
-                // Called when the endpointer is ready for the user to start speaking.
-            }
+            public void onReadyForSpeech(Bundle params) {}
 
             @Override
-            public void onBeginningOfSpeech() {
-                // Called after the user starts speaking.
-            }
+            public void onBeginningOfSpeech() {}
 
             @Override
-            public void onRmsChanged(float rmsdB) {
-                // Called to provide the user with feedback on the received signal.
-            }
+            public void onRmsChanged(float rmsdB) {}
 
             @Override
-            public void onBufferReceived(byte[] buffer) {
-                // Called when more sound has been received.
-            }
+            public void onBufferReceived(byte[] buffer) {}
 
             @Override
-            public void onEndOfSpeech() {
-                // Called after the user stops speaking.
-            }
+            public void onEndOfSpeech() {}
 
             @Override
             public void onError(int error) {
-                // Detailed error logging
                 String errorMessage = getErrorText(error);
                 Toast.makeText(VoiceRecognitionActivity.this, "Recognition Error: " + errorMessage, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onResults(Bundle results) {
-                // Called when recognition results are ready.
                 ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 if (matches != null && !matches.isEmpty()) {
                     String recognizedText = matches.get(0);
@@ -85,17 +81,12 @@ public class VoiceRecognitionActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPartialResults(Bundle partialResults) {
-                // Called when partial recognition results are available.
-            }
+            public void onPartialResults(Bundle partialResults) {}
 
             @Override
-            public void onEvent(int eventType, Bundle params) {
-                // Called when a recognition event occurs.
-            }
+            public void onEvent(int eventType, Bundle params) {}
         });
 
-        // Set the button click listener
         speechButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,36 +104,55 @@ public class VoiceRecognitionActivity extends AppCompatActivity {
     }
 
     private void handleVoiceCommand(String command) {
-        Intent intent;
-        switch (command) {
-            case "άνοιξε τις κλήσεις":
-            case "open calls":
-                intent = new Intent(this, CallsActivity.class);
-                startActivity(intent);
-                break;
-            case "άνοιξε τα μηνύματα":
-            case "open messages":
-                intent = new Intent(this, MessagesActivity.class);
-                startActivity(intent);
-                break;
-            case "άνοιξε τις υπενθυμίσεις":
-            case "open reminders":
-                intent = new Intent(this, RemindersActivity.class);
-                startActivity(intent);
-                break;
-            case "άνοιξε τις επαφές":
-            case "open contacts":
-                intent = new Intent(this, ContactsActivity.class);
-                startActivity(intent);
-                break;
-            case "άνοιξε το sos":
-            case "open sos":
-                intent = new Intent(this, SOSActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                Toast.makeText(this, "Άγνωστη εντολή / Unknown command: " + command, Toast.LENGTH_SHORT).show();
-                break;
+        if (command.equals("κάλεσε την αστυνομία") || command.equals("call police")) {
+            makePhoneCall("100  "); // Police
+        } else if (command.equals("κάλεσε την πυροσβεστική") || command.equals("call fire station")) {
+            makePhoneCall("199"); // Fire Station
+        } else if (command.equals("κάλεσε το εκαβ") || command.equals("call ambulance")) {
+            makePhoneCall("166"); // Ambulance
+        } else if (command.startsWith("κάλεσε τον ") || command.startsWith("κάλεσε την ") || command.startsWith("call ")) {
+            String contactName = command.replace("κάλεσε τον ", "").replace("κάλεσε την ", "").replace("call ", "").trim();
+            ContactManager.Contact contact = contactManager.getContactByName(contactName);
+            if (contact != null) {
+                makePhoneCall(contact.getPhone());
+            } else {
+                Toast.makeText(this, "Η επαφή δεν βρέθηκε / Contact not found: " + contactName, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            switch (command) {
+                case "άνοιξε τις κλήσεις":
+                case "open calls":
+                    startActivity(new Intent(this, CallsActivity.class));
+                    break;
+                case "άνοιξε τα μηνύματα":
+                case "open messages":
+                    startActivity(new Intent(this, MessagesActivity.class));
+                    break;
+                case "άνοιξε τις υπενθυμίσεις":
+                case "open reminders":
+                    startActivity(new Intent(this, RemindersActivity.class));
+                    break;
+                case "άνοιξε τις επαφές":
+                case "open contacts":
+                    startActivity(new Intent(this, ContactsActivity.class));
+                    break;
+                case "άνοιξε το sos":
+                case "open sos":
+                    startActivity(new Intent(this, SOSActivity.class));
+                    break;
+                default:
+                    Toast.makeText(this, "Άγνωστη εντολή / Unknown command: " + command, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
+
+    private void makePhoneCall(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
         }
     }
 
@@ -157,15 +167,13 @@ public class VoiceRecognitionActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission to record audio is required", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+        if ((requestCode == REQUEST_RECORD_AUDIO_PERMISSION || requestCode == REQUEST_CALL_PHONE_PERMISSION) &&
+                grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Permission is required", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
-    // Helper method to provide detailed error messages
     private String getErrorText(int errorCode) {
         switch (errorCode) {
             case SpeechRecognizer.ERROR_AUDIO:

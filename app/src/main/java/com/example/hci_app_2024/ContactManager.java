@@ -33,6 +33,15 @@ public class ContactManager {
         return contacts.get(id);
     }
 
+    public Contact getContactByName(String name) {
+        for (Contact contact : contacts.values()) {
+            if (contact.getName().equalsIgnoreCase(name)) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Contact> getAllContacts() {
         return new ArrayList<>(contacts.values());
     }
@@ -60,6 +69,8 @@ public class ContactManager {
             }
         }
     }
+
+
 
     public static class Contact {
         private String id;
