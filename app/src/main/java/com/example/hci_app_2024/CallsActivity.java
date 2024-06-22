@@ -27,6 +27,15 @@ public class CallsActivity extends AppCompatActivity {
         gridLayout = findViewById(R.id.gridLayout);
         callButton = findViewById(R.id.callButton);
         backspaceButton = findViewById(R.id.backspaceButton);
+        ImageButton microphoneButton = findViewById(R.id.button_microphone);
+
+        microphoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CallsActivity.this, VoiceRecognitionActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnContacts.setOnClickListener(new View.OnClickListener() {
             @Override

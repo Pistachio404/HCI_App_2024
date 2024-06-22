@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,15 +22,24 @@ public class ContactsActivity extends AppCompatActivity {
 
         contactListLayout = findViewById(R.id.contactListLayout);
         btnAddContact = findViewById(R.id.btnAddContact);
+        ImageButton microphoneButton = findViewById(R.id.button_microphone);
 
-        // Προσθήκη επαφών στον ContactManager (στατική για το παράδειγμα)
+        microphoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactsActivity.this, VoiceRecognitionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Προσθήκη επαφών στον ContactManager
         ContactManager contactManager = ContactManager.getInstance(this);
-        contactManager.addContact("1", "ΜΑΡΙΑ", "1234567890");
-        contactManager.addContact("2", "ΓΙΩΡΓΟΣ", "2345678901");
-        contactManager.addContact("3", "ΝΙΚΟΛΑΣ", "3456789012");
-        contactManager.addContact("4", "ΑΝΝΑ", "4567890123");
-        contactManager.addContact("5", "ΕΓΓΟΝΟΣ", "5678901234");
-        contactManager.addContact("6", "ΕΓΓΟΝΗ", "6789012345");
+        contactManager.addContact("1", "Μαρία", "1234567890");
+        contactManager.addContact("2", "Γιώργος", "2345678901");
+        contactManager.addContact("3", "Νικόλας", "3456789012");
+        contactManager.addContact("4", "Άννα", "4567890123");
+        contactManager.addContact("5", "Εγγονός", "5678901234");
+        contactManager.addContact("6", "Εγγονή", "6789012345");
 
         // Φόρτωση επαφών στη λίστα
         loadContacts();

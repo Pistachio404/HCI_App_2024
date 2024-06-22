@@ -28,6 +28,15 @@ public class ContactDetailsActivity extends AppCompatActivity {
         buttonCall = findViewById(R.id.button_call);
         buttonMessage = findViewById(R.id.button_message);
         buttonEdit = findViewById(R.id.button_edit);
+        ImageButton microphoneButton = findViewById(R.id.button_microphone);
+
+        microphoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactDetailsActivity.this, VoiceRecognitionActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Λήψη του ID της επαφής από το Intent
         contactId = getIntent().getStringExtra("CONTACT_ID");
