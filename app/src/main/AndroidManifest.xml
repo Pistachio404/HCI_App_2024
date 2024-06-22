@@ -23,6 +23,8 @@
         <activity android:name=".VoiceRecognitionActivity" />
         <activity android:name=".ContactDetailsActivity"/>
         <activity android:name=".NewMessageActivity" />
+        <activity android:name=".AddReminderActivity" />
+        <activity android:name=".NewContactActivity"/>
         <activity android:name=".MenuActivity"
             android:exported="true">
             <intent-filter>

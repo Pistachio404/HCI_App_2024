@@ -1,5 +1,4 @@
 package com.example.hci_app_2024;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +6,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class ContactsActivity extends AppCompatActivity {
 
@@ -21,13 +22,17 @@ public class ContactsActivity extends AppCompatActivity {
         contactListLayout = findViewById(R.id.contactListLayout);
         btnAddContact = findViewById(R.id.btnAddContact);
 
-        // Προσθήκη επαφών στη λίστα (στατική για το παράδειγμα)
-        addContact("1", "ΜΑΡΙΑ");
-        addContact("2", "ΓΙΩΡΓΟΣ");
-        addContact("3", "ΝΙΚΟΛΑΣ");
-        addContact("4", "ΑΝΝΑ");
-        addContact("5", "ΕΓΓΟΝΟΣ");
-        addContact("6", "ΕΓΓΟΝΗ");
+        // Προσθήκη επαφών στον ContactManager (στατική για το παράδειγμα)
+        ContactManager contactManager = ContactManager.getInstance(this);
+        contactManager.addContact("1", "ΜΑΡΙΑ", "1234567890");
+        contactManager.addContact("2", "ΓΙΩΡΓΟΣ", "2345678901");
+        contactManager.addContact("3", "ΝΙΚΟΛΑΣ", "3456789012");
+        contactManager.addContact("4", "ΑΝΝΑ", "4567890123");
+        contactManager.addContact("5", "ΕΓΓΟΝΟΣ", "5678901234");
+        contactManager.addContact("6", "ΕΓΓΟΝΗ", "6789012345");
+
+        // Φόρτωση επαφών στη λίστα
+        loadContacts();
 
         // Διαχείριση κουμπιού "Προσθήκη νέας επαφής"
         btnAddContact.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +43,27 @@ public class ContactsActivity extends AppCompatActivity {
         });
     }
 
-    private void addContact(final String id, final String name) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshContactList();
+    }
+
+    private void loadContacts() {
+        ContactManager contactManager = ContactManager.getInstance(this);
+        ArrayList<ContactManager.Contact> contacts = contactManager.getAllContacts();
+
+        for (ContactManager.Contact contact : contacts) {
+            addContact(contact.getId(), contact.getName(), contact.getPhone());
+        }
+    }
+
+    private void refreshContactList() {
+        contactListLayout.removeAllViews();
+        loadContacts();
+    }
+
+    private void addContact(final String id, final String name, final String phone) {
         TextView contactTextView = new TextView(this);
         contactTextView.setText(name);
         contactTextView.setTextSize(20);

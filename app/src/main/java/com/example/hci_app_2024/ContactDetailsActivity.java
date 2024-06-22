@@ -1,7 +1,9 @@
 package com.example.hci_app_2024;
+
+
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,8 +18,8 @@ public class ContactDetailsActivity extends AppCompatActivity {
 
     private EditText contactName, contactPhone;
     private Button buttonCall, buttonMessage, buttonEdit;
-    private String phoneNumber;
-    private String contactId; // Unique identifier for the contact
+    private String contactId;
+    private boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +32,17 @@ public class ContactDetailsActivity extends AppCompatActivity {
         buttonMessage = findViewById(R.id.button_message);
         buttonEdit = findViewById(R.id.button_edit);
 
-        // Λήψη του ονόματος και του τηλεφώνου της επαφής από το Intent
+        // Λήψη του ID της επαφής από το Intent
         contactId = getIntent().getStringExtra("CONTACT_ID");
+
+        // Φόρτωση των στοιχείων της επαφής
         loadContactDetails(contactId);
 
         // Διαχείριση κλήσης
         buttonCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String phoneNumber = contactPhone.getText().toString();
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:" + phoneNumber));
                 startActivity(callIntent);
@@ -54,11 +59,15 @@ public class ContactDetailsActivity extends AppCompatActivity {
             }
         });
 
-        // Διαχείριση επεξεργασίας
+        // Διαχείριση επεξεργασίας και αποθήκευσης
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enableEditing();
+                if (isEditing) {
+                    saveChanges();
+                } else {
+                    enableEditing();
+                }
             }
         });
 
@@ -92,6 +101,8 @@ public class ContactDetailsActivity extends AppCompatActivity {
         contactPhone.setEnabled(true);
         contactName.setFocusableInTouchMode(true);
         contactPhone.setFocusableInTouchMode(true);
+        buttonEdit.setText("Αποθήκευση");
+        isEditing = true;
     }
 
     // Αποθήκευση των αλλαγών
@@ -104,19 +115,22 @@ public class ContactDetailsActivity extends AppCompatActivity {
         // Αποθήκευση των ενημερωμένων δεδομένων
         String updatedName = contactName.getText().toString();
         String updatedPhone = contactPhone.getText().toString();
-        SharedPreferences sharedPreferences = getSharedPreferences("contacts", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(contactId + "_name", updatedName);
-        editor.putString(contactId + "_phone", updatedPhone);
-        editor.apply();
+        ContactManager contactManager = ContactManager.getInstance(this);
+        contactManager.addContact(contactId, updatedName, updatedPhone);
+
+        buttonEdit.setText("Επεξεργασία");
+        isEditing = false;
     }
 
-    // Φόρτωση των στοιχείων της επαφής από το SharedPreferences
+    // Φόρτωση των στοιχείων της επαφής από το ContactManager
     private void loadContactDetails(String contactId) {
-        SharedPreferences sharedPreferences = getSharedPreferences("contacts", Context.MODE_PRIVATE);
-        String name = sharedPreferences.getString(contactId + "_name", "ΟΝΟΜΑ");
-        phoneNumber = sharedPreferences.getString(contactId + "_phone", "69XXXXXXXXX");
-        contactName.setText(name);
-        contactPhone.setText(phoneNumber);
+        ContactManager.Contact contact = ContactManager.getInstance(this).getContact(contactId);
+        if (contact != null) {
+            contactName.setText(contact.getName());
+            contactPhone.setText(contact.getPhone());
+        } else {
+            contactName.setText("ΟΝΟΜΑ");
+            contactPhone.setText("69XXXXXXXXX");
+        }
     }
 }

@@ -26,7 +26,7 @@ public class MessagesActivity extends AppCompatActivity {
 
         Button newMessageButton = findViewById(R.id.btnNew_message);
         newMessageButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MessagesActivity.this, NewMessageActivity.class);
+            Intent intent = new Intent(MessagesActivity.this, ContactsActivity.class);
             startActivity(intent);
         });
 

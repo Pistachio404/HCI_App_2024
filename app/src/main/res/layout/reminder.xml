@@ -22,10 +22,6 @@
         android:layout_marginTop="16dp"/>
 
     <!-- Microphone Button -->
-
-    <!-- Date Navigation Layout -->
-
-    <!-- Reminders List -->
     <ImageButton
         android:id="@+id/button_microphone"
         android:layout_width="60dp"
@@ -39,6 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Date Navigation Layout -->
     <LinearLayout
         android:id="@+id/linearLayout_date_navigation"
         android:layout_width="0dp"
@@ -76,6 +73,7 @@
             android:src="@android:drawable/ic_media_next" />
     </LinearLayout>
 
+    <!-- Reminders List -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_reminders"
         android:layout_width="0dp"
@@ -91,83 +89,22 @@
         app:layout_constraintTop_toBottomOf="@id/linearLayout_date_navigation">
 
         <LinearLayout
+            android:id="@+id/linearLayout_reminders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Χάπι Καρδιάς 8:00"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Χάπι Υπέρτασης 8:30"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Καρδιολόγος 11:00"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Χάπι Διαβήτη 15:30"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Βιταμίνη D 15:30"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Χάπι Υπέρτασης 20:00"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Χάπι Καρδιάς 20:30"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Χάπι Ύπνου 20:30"
-                android:textColor="#000000"
-                android:textSize="20sp" />
+            <!-- Add your TextViews for reminders here dynamically -->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- Add Reminder Button -->
     <Button
         android:id="@+id/button_add_reminder"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="68dp"
         android:background="#00C853"
         android:text="ΠΡΟΣΘΗΚΗ"
         android:textColor="#FFFFFF"
@@ -176,7 +113,23 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Delete Button -->
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="68dp"
+        android:background="#D32F2F"
+        android:text="ΔΙΑΓΡΑΦΗ"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
