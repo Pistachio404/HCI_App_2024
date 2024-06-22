@@ -32,8 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="Μικρόφωνο"
-        />
+        android:contentDescription="Μικρόφωνο" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -60,6 +59,7 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/textView_maria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -68,6 +68,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/textView_giorgos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -76,6 +77,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/textView_nikolas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -84,13 +86,16 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/textView_anna"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="ΑΝΝΑ"
                     android:textColor="#000000"
                     android:textSize="20sp" />
+
                 <TextView
+                    android:id="@+id/textView_eggons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -99,6 +104,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/textView_eggoni"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -107,6 +113,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/textView_doctor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -115,16 +122,15 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/textView_pathologist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="ΠΑΘΟΛΟΓΟΣ"
                     android:textColor="#000000"
                     android:textSize="20sp" />
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
     </ScrollView>
 
     <Button
