@@ -1,7 +1,7 @@
 package com.example.hci_app_2024;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class NewMessageActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE_CONTACTS = 1;
+
+    private Button contactSearchButton;
     private EditText messageEditText;
     private String contactName;
 
@@ -20,6 +23,12 @@ public class NewMessageActivity extends AppCompatActivity {
 
         contactName = getIntent().getStringExtra("contact_name");
         messageEditText = findViewById(R.id.message_body);
+
+        contactSearchButton = findViewById(R.id.contact_search_button);
+        contactSearchButton.setOnClickListener(v -> {
+            Intent intent = new Intent(NewMessageActivity.this, ContactsActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_CONTACTS);
+        });
 
         ImageButton microphoneButton = findViewById(R.id.button_microphone);
         microphoneButton.setOnClickListener(v -> {
@@ -52,5 +61,19 @@ public class NewMessageActivity extends AppCompatActivity {
                 imm.showSoftInput(messageEditText, InputMethodManager.SHOW_IMPLICIT);
             }
         });
+
+        // If contact name is provided, set it in the contactSearchButton
+        if (contactName != null && !contactName.isEmpty()) {
+            contactSearchButton.setText(contactName);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CONTACTS && resultCode == RESULT_OK) {
+            contactName = data.getStringExtra("contact_name");
+            contactSearchButton.setText(contactName);
+        }
     }
 }

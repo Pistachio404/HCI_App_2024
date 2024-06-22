@@ -139,7 +139,7 @@
         android:layout_height="70dp"
         android:layout_marginBottom="56dp"
         android:backgroundTint="#1E88E5"
-        android:text="Σύνταξη Νέου Μηνύματος"
+        android:text="Νέο Μήνυμα"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
