@@ -14,6 +14,7 @@ public class ContactsActivity extends AppCompatActivity {
 
     private LinearLayout contactListLayout;
     private Button btnAddContact;
+    private boolean isSelectingContact = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,10 @@ public class ContactsActivity extends AppCompatActivity {
         contactListLayout = findViewById(R.id.contactListLayout);
         btnAddContact = findViewById(R.id.btnAddContact);
 
-        // Προσθήκη επαφών στον ContactManager (στατική για το παράδειγμα)
+        // Determine if the activity was started for result
+        isSelectingContact = getIntent().getBooleanExtra("select_contact", false);
+
+        // Add static contacts to ContactManager for this example
         ContactManager contactManager = ContactManager.getInstance(this);
         contactManager.addContact("1", "ΜΑΡΙΑ", "1234567890");
         contactManager.addContact("2", "ΓΙΩΡΓΟΣ", "2345678901");
@@ -32,21 +36,15 @@ public class ContactsActivity extends AppCompatActivity {
         contactManager.addContact("5", "ΕΓΓΟΝΟΣ", "5678901234");
         contactManager.addContact("6", "ΕΓΓΟΝΗ", "6789012345");
 
-        // Ορισμός προεπιλεγμένων αγαπημένων
-        contactManager.addFavorite("1");
-        contactManager.addFavorite("2");
-
-        // Φόρτωση επαφών στη λίστα
+        // Load contacts into the list
         loadContacts();
 
-        // Διαχείριση κουμπιού "Προσθήκη νέας επαφής"
-        btnAddContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ContactsActivity.this, NewContactActivity.class));
-            }
+        // Handle "Add New Contact" button
+        btnAddContact.setOnClickListener(v -> {
+            startActivity(new Intent(ContactsActivity.this, NewContactActivity.class));
         });
 
+        // Handle microphone button
         ImageButton microphoneButton = findViewById(R.id.button_microphone);
         microphoneButton.setOnClickListener(v -> {
             Intent intent = new Intent(ContactsActivity.this, VoiceRecognitionActivity.class);
@@ -80,9 +78,15 @@ public class ContactsActivity extends AppCompatActivity {
         contactTextView.setTextSize(20);
         contactTextView.setPadding(10, 10, 10, 10);
         contactTextView.setTextColor(getResources().getColor(android.R.color.black));
-        contactTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        contactTextView.setOnClickListener(v -> {
+            if (isSelectingContact) {
+                // Return the selected contact name to the calling activity
+                Intent intent = new Intent();
+                intent.putExtra("contact_name", name);
+                setResult(RESULT_OK, intent);
+                finish();
+            } else {
+                // Navigate to the contact details
                 Intent intent = new Intent(ContactsActivity.this, ContactDetailsActivity.class);
                 intent.putExtra("CONTACT_ID", id);
                 startActivity(intent);

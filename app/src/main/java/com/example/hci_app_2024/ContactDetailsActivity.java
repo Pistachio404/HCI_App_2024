@@ -35,75 +35,57 @@ public class ContactDetailsActivity extends AppCompatActivity {
         buttonEdit = findViewById(R.id.button_edit);
         buttonFavorite = findViewById(R.id.button_favorite);
 
-        // Λήψη του ID της επαφής από το Intent
+        // Get the contact ID from the Intent
         contactId = getIntent().getStringExtra("CONTACT_ID");
 
-        // Φόρτωση των στοιχείων της επαφής
+        // Load the contact details
         loadContactDetails(contactId);
 
-        // Διαχείριση κλήσης
-        buttonCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phoneNumber = contactPhone.getText().toString();
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + phoneNumber));
-                startActivity(callIntent);
+        // Handle call button
+        buttonCall.setOnClickListener(v -> {
+            String phoneNumber = contactPhone.getText().toString();
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + phoneNumber));
+            startActivity(callIntent);
+        });
+
+        // Handle message button
+        buttonMessage.setOnClickListener(v -> {
+            Intent smsIntent = new Intent(ContactDetailsActivity.this, Message_DetailsActivity.class);
+            smsIntent.putExtra("contact_name", contactName.getText().toString());
+            startActivity(smsIntent);
+        });
+
+        // Handle edit button
+        buttonEdit.setOnClickListener(v -> {
+            if (isEditing) {
+                saveChanges();
+            } else {
+                enableEditing();
             }
         });
 
-        // Διαχείριση μηνύματος
-        buttonMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent smsIntent = new Intent(ContactDetailsActivity.this, Message_DetailsActivity.class);
-                smsIntent.putExtra("CONTACT_NAME", contactName.getText().toString());
-                startActivity(smsIntent);
+        // Handle favorite button
+        buttonFavorite.setOnClickListener(v -> toggleFavorite());
+
+        // Save changes when Enter is pressed
+        contactName.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                saveChanges();
+                return true;
             }
+            return false;
         });
 
-        // Διαχείριση επεξεργασίας και αποθήκευσης
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isEditing) {
-                    saveChanges();
-                } else {
-                    enableEditing();
-                }
+        contactPhone.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                saveChanges();
+                return true;
             }
+            return false;
         });
 
-        buttonFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleFavorite();
-            }
-        });
-
-        // Listener για την αποθήκευση όταν πατηθεί το Enter
-        contactName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    saveChanges();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        contactPhone.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    saveChanges();
-                    return true;
-                }
-                return false;
-            }
-        });
-
+        // Handle microphone button
         ImageButton microphoneButton = findViewById(R.id.button_microphone);
         microphoneButton.setOnClickListener(v -> {
             Intent intent = new Intent(ContactDetailsActivity.this, VoiceRecognitionActivity.class);
@@ -111,7 +93,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
         });
     }
 
-    // Ενεργοποίηση της επεξεργασίας των πεδίων
+    // Enable editing fields
     private void enableEditing() {
         contactName.setEnabled(true);
         contactPhone.setEnabled(true);
@@ -121,14 +103,14 @@ public class ContactDetailsActivity extends AppCompatActivity {
         isEditing = true;
     }
 
-    // Αποθήκευση των αλλαγών
+    // Save changes
     private void saveChanges() {
         contactName.setEnabled(false);
         contactPhone.setEnabled(false);
         contactName.setFocusableInTouchMode(false);
         contactPhone.setFocusableInTouchMode(false);
 
-        // Αποθήκευση των ενημερωμένων δεδομένων
+        // Save updated data
         String updatedName = contactName.getText().toString();
         String updatedPhone = contactPhone.getText().toString();
         ContactManager contactManager = ContactManager.getInstance(this);
@@ -138,7 +120,7 @@ public class ContactDetailsActivity extends AppCompatActivity {
         isEditing = false;
     }
 
-    // Εναλλαγή αγαπημένων
+    // Toggle favorite
     private void toggleFavorite() {
         ContactManager contactManager = ContactManager.getInstance(this);
         if (isFavorite) {
@@ -149,14 +131,13 @@ public class ContactDetailsActivity extends AppCompatActivity {
                 contactManager.addFavorite(contactId);
                 buttonFavorite.setText("Αφαίρεση από τα αγαπημένα");
             } else {
-                // Εμφάνιση μηνύματος ότι έχουν φτάσει το μέγιστο αριθμό αγαπημένων
                 Toast.makeText(this, "Έχετε φτάσει το μέγιστο αριθμό αγαπημένων.", Toast.LENGTH_SHORT).show();
             }
         }
         isFavorite = !isFavorite;
     }
 
-    // Φόρτωση των στοιχείων της επαφής από το ContactManager
+    // Load contact details from ContactManager
     private void loadContactDetails(String contactId) {
         ContactManager.Contact contact = ContactManager.getInstance(this).getContact(contactId);
         if (contact != null) {
@@ -171,3 +152,4 @@ public class ContactDetailsActivity extends AppCompatActivity {
         }
     }
 }
+

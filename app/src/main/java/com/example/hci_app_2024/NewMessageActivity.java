@@ -27,6 +27,7 @@ public class NewMessageActivity extends AppCompatActivity {
         contactSearchButton = findViewById(R.id.contact_search_button);
         contactSearchButton.setOnClickListener(v -> {
             Intent intent = new Intent(NewMessageActivity.this, ContactsActivity.class);
+            intent.putExtra("select_contact", true);
             startActivityForResult(intent, REQUEST_CODE_CONTACTS);
         });
 
@@ -39,7 +40,7 @@ public class NewMessageActivity extends AppCompatActivity {
         Button sendButton = findViewById(R.id.send_button);
         sendButton.setOnClickListener(v -> {
             String messageText = messageEditText.getText().toString();
-            if (!messageText.trim().isEmpty()) {
+            if (!messageText.trim().isEmpty() && contactName != null && !contactName.isEmpty()) {
                 Intent intent = new Intent(NewMessageActivity.this, Message_DetailsActivity.class);
                 intent.putExtra("message_text", messageText);
                 intent.putExtra("contact_name", contactName);
