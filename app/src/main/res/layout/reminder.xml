@@ -102,13 +102,13 @@
     <!-- Add Reminder Button -->
     <Button
         android:id="@+id/button_add_reminder"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="80dp"
         android:layout_marginBottom="68dp"
         android:background="#00C853"
         android:text="ΠΡΟΣΘΗΚΗ"
         android:textColor="#FFFFFF"
-        android:textSize="24dp"
+        android:textSize="19dp"
         android:textStyle="bold"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,13 +119,13 @@
     <!-- Delete Button -->
     <Button
         android:id="@+id/button_delete"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="80dp"
         android:layout_marginBottom="68dp"
         android:background="#D32F2F"
         android:text="ΔΙΑΓΡΑΦΗ"
         android:textColor="#FFFFFF"
-        android:textSize="24dp"
+        android:textSize="19dp"
         android:textStyle="bold"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
