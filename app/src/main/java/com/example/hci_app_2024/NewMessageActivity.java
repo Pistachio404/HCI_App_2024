@@ -45,7 +45,7 @@ public class NewMessageActivity extends AppCompatActivity {
                 intent.putExtra("message_text", messageText);
                 intent.putExtra("contact_name", contactName);
                 startActivity(intent);
-                finish(); // Close NewMessageActivity
+                finish();
             }
         });
 
@@ -53,7 +53,7 @@ public class NewMessageActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(v -> {
             Intent intent = new Intent(NewMessageActivity.this, MessagesActivity.class);
             startActivity(intent);
-            finish(); // Close NewMessageActivity
+            finish();
         });
 
         messageEditText.setOnFocusChangeListener((v, hasFocus) -> {

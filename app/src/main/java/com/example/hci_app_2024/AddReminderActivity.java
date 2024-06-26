@@ -78,8 +78,6 @@ public class AddReminderActivity extends AppCompatActivity {
             intent.putExtra("time", time);
             setResult(RESULT_OK, intent);
             finish();
-        } else {
-            // Handle empty fields if needed
         }
     }
 

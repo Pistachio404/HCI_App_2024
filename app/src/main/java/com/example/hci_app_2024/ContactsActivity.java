@@ -36,15 +36,12 @@ public class ContactsActivity extends AppCompatActivity {
         contactManager.addContact("5", "Εγγονός", "5678901234");
         contactManager.addContact("6", "Εγγονή", "6789012345");
 
-        // Load contacts into the list
         loadContacts();
 
-        // Handle "Add New Contact" button
         btnAddContact.setOnClickListener(v -> {
             startActivity(new Intent(ContactsActivity.this, NewContactActivity.class));
         });
 
-        // Handle microphone button
         ImageButton microphoneButton = findViewById(R.id.button_microphone);
         microphoneButton.setOnClickListener(v -> {
             Intent intent = new Intent(ContactsActivity.this, VoiceRecognitionActivity.class);

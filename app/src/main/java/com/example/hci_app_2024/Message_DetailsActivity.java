@@ -79,7 +79,7 @@ public class Message_DetailsActivity extends AppCompatActivity {
         newMessage.setBackgroundResource(R.drawable.message_box_right);
         newMessage.setText(messageText);
         newMessage.setTextColor(getResources().getColor(android.R.color.white));
-        newMessage.setTextSize(18);  // Adjust text size as needed
+        newMessage.setTextSize(18);
         newMessage.setPadding(8, 8, 8, 8);
 
         constraintLayoutMessages.addView(newMessage);

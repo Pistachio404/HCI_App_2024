@@ -22,7 +22,6 @@ public class MessagesActivity extends AppCompatActivity {
 
         contactsContainer = findViewById(R.id.contacts_container);
 
-        // Load contacts and populate the list
         loadContacts();
 
         Button newMessageButton = findViewById(R.id.btnNew_message);
