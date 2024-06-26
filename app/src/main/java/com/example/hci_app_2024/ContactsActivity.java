@@ -29,12 +29,12 @@ public class ContactsActivity extends AppCompatActivity {
 
         // Add static contacts to ContactManager for this example
         ContactManager contactManager = ContactManager.getInstance(this);
-        contactManager.addContact("1", "ΜΑΡΙΑ", "1234567890");
-        contactManager.addContact("2", "ΓΙΩΡΓΟΣ", "2345678901");
-        contactManager.addContact("3", "ΝΙΚΟΛΑΣ", "3456789012");
-        contactManager.addContact("4", "ΑΝΝΑ", "4567890123");
-        contactManager.addContact("5", "ΕΓΓΟΝΟΣ", "5678901234");
-        contactManager.addContact("6", "ΕΓΓΟΝΗ", "6789012345");
+        contactManager.addContact("1", "Μαρία", "1234567890");
+        contactManager.addContact("2", "Γιώργος", "2345678901");
+        contactManager.addContact("3", "Νίκος", "3456789012");
+        contactManager.addContact("4", "Άννα", "4567890123");
+        contactManager.addContact("5", "Εγγονός", "5678901234");
+        contactManager.addContact("6", "Εγγονή", "6789012345");
 
         // Load contacts into the list
         loadContacts();
