@@ -3,18 +3,23 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ContactManager {
     private static ContactManager instance;
     private HashMap<String, Contact> contacts;
+    private Set<String> favorites;
     private static final String PREFS_NAME = "contacts";
     private SharedPreferences sharedPreferences;
 
     private ContactManager(Context context) {
         contacts = new HashMap<>();
+        favorites = new HashSet<>();
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         loadContacts();
+        loadFavorites();
     }
 
     public static synchronized ContactManager getInstance(Context context) {
@@ -42,8 +47,34 @@ public class ContactManager {
         return null;
     }
 
+
     public ArrayList<Contact> getAllContacts() {
         return new ArrayList<>(contacts.values());
+    }
+
+    public ArrayList<Contact> getFavorites() {
+        ArrayList<Contact> favoriteContacts = new ArrayList<>();
+        for (String id : favorites) {
+            Contact contact = contacts.get(id);
+            if (contact != null) {
+                favoriteContacts.add(contact);
+            }
+        }
+        return favoriteContacts;
+    }
+
+    public void addFavorite(String id) {
+        favorites.add(id);
+        saveFavorites();
+    }
+
+    public void removeFavorite(String id) {
+        favorites.remove(id);
+        saveFavorites();
+    }
+
+    public boolean isFavorite(String id) {
+        return favorites.contains(id);
     }
 
     private void saveContacts() {
@@ -70,7 +101,15 @@ public class ContactManager {
         }
     }
 
+    private void saveFavorites() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("favorites", favorites);
+        editor.apply();
+    }
 
+    private void loadFavorites() {
+        favorites = sharedPreferences.getStringSet("favorites", new HashSet<String>());
+    }
 
     public static class Contact {
         private String id;

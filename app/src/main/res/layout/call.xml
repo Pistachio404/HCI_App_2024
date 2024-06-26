@@ -91,7 +91,8 @@
                     android:layout_weight="1"
                     android:text="Επαφή 1"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/btnFavorite2"
@@ -100,7 +101,8 @@
                     android:layout_weight="1"
                     android:text="Επαφή 2"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +117,8 @@
                     android:layout_weight="1"
                     android:text="Επαφή 3"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/btnFavorite4"
@@ -124,7 +127,8 @@
                     android:layout_weight="1"
                     android:text="Επαφή 4"
                     android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

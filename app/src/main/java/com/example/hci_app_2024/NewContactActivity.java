@@ -1,12 +1,13 @@
 package com.example.hci_app_2024;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NewContactActivity extends AppCompatActivity {
@@ -38,7 +39,14 @@ public class NewContactActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ImageButton microphoneButton = findViewById(R.id.button_microphone);
+        microphoneButton.setOnClickListener(v -> {
+            Intent intent = new Intent(NewContactActivity.this, VoiceRecognitionActivity.class);
+            startActivity(intent);
+        });
     }
+
 
     private void addNewContact() {
         String firstName = editTextFirstName.getText().toString();
